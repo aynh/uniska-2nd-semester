@@ -1,0 +1,8 @@
+# binary files
+*.exe
+*.zip
+
+# delphi binary files
+*.res
+*.dcu
+*.ddp
