@@ -64,6 +64,7 @@ UPDATE tblpengarang
   SET kota = 'Yogyakarta'
   WHERE kota = 'Yogya';
 
+
 -- NOMOR 8 - Apa perintah untuk menghapus data pegawai pada tabel `tblpegawai` yang NIP-nya 123456?
 DELETE FROM tblpegawai
   WHERE nip = '123456';
