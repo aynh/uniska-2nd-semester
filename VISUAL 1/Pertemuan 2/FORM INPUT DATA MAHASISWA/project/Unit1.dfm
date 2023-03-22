@@ -1,6 +1,6 @@
 object FormInputDataMahasiswa: TFormInputDataMahasiswa
-  Left = 319
-  Top = 152
+  Left = 322
+  Top = 125
   BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsSingle
   Caption = 'Form Input Data Mahasiswa'
@@ -317,5 +317,6 @@ object FormInputDataMahasiswa: TFormInputDataMahasiswa
     Font.Style = []
     ParentFont = False
     TabOrder = 11
+    OnClick = ButtonUlangClick
   end
 end
