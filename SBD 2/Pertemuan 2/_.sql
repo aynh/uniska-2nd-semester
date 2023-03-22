@@ -68,3 +68,7 @@ UPDATE tblpengarang
 -- NOMOR 8 - Apa perintah untuk menghapus data pegawai pada tabel `tblpegawai` yang NIP-nya 123456?
 DELETE FROM tblpegawai
   WHERE nip = '123456';
+
+
+-- NOMOR 9 - Diinginkan untuk menghapus tabel tblpegawai, apa perintahnya?
+DROP TABLE tblpegawai;

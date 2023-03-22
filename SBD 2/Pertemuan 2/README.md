@@ -103,3 +103,9 @@ UPDATE tblpengarang
 DELETE FROM tblpegawai
   WHERE nip = '123456';
 ```
+
+9. Diinginkan untuk menghapus tabel `tblpegawai`, apa perintahnya?
+
+```sql
+DROP TABLE tblpegawai;
+```
