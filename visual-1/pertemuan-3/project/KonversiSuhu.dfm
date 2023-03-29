@@ -1,6 +1,6 @@
 object FormKonversiSuhu: TFormKonversiSuhu
-  Left = 339
-  Top = 250
+  Left = 435
+  Top = 228
   BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsSingle
   Caption = 'Konversi Suhu'
@@ -87,6 +87,7 @@ object FormKonversiSuhu: TFormKonversiSuhu
     Font.Style = []
     ParentFont = False
     TabOrder = 1
+    OnChange = EditInputChange
   end
   object EditOutput: TEdit
     Left = 158

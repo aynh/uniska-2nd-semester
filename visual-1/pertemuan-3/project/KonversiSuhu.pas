@@ -19,6 +19,7 @@ type
     procedure ButtonKonversiClick(Sender: TObject);
     procedure RadioGroupKonversiClick(Sender: TObject);
     procedure ButtonUlangClick(Sender: TObject);
+    procedure EditInputChange(Sender: TObject);
   private
     { Private declarations }
   public
@@ -30,50 +31,66 @@ var
 
 implementation
 
-{$R *.dfm}  
+{$R *.dfm}
 
 procedure TFormKonversiSuhu.RadioGroupKonversiClick(Sender: TObject);
+var
+  nilaiInput, nilaiOutput: string;
 begin
-  // enable tombol konversi dan inputan suhu
-  ButtonKonversi.Enabled := True;
+  // enable inputan suhu
   EditInput.Enabled := True;
 
-  // reset inputan dan hasil
-  EditInput.Text := '';
-  EditOutput.Text := '';
+  if (EditInput.Text <> '') and (EditOutput.Text <> '') then
+  begin
+    // balik inputan dan hasil kalau keduanya tidak kosong
+    nilaiInput := EditInput.Text;
+    nilaiOutput := EditOutput.Text;
+    EditInput.Text := nilaiOutput;
+    EditOutput.Text := nilaiInput;
+  end
+  else
+  begin
+    // kalau ada yang kosong, reset keduanya
+    EditInput.Text := '';
+    EditOutput.Text := '';
+  end;
 
-  if RadioGroupKonversi.ItemIndex = 0 then   
-    // konversi celcius ke fahrenheit
-    begin
-      LabelInput.Caption := 'Input Celcius';
-      LabelOutput.Caption := 'Output Fahrenheit';
-    end
-  else if RadioGroupKonversi.ItemIndex = 1 then   
-    // konversi fahrenheit ke celcius
-    begin
-      LabelInput.Caption := 'Input Fahrenheit';
-      LabelOutput.Caption := 'Output Celcius';
-    end;
+  case RadioGroupKonversi.ItemIndex of
+    0:
+      begin
+        // konversi celcius ke fahrenheit
+        LabelInput.Caption := 'Input Celcius';
+        LabelOutput.Caption := 'Output Fahrenheit';
+      end;
+    1:
+      begin
+        // konversi fahrenheit ke celcius
+        LabelInput.Caption := 'Input Fahrenheit';
+        LabelOutput.Caption := 'Output Celcius';
+      end;
+  end;
 end;
 
 procedure TFormKonversiSuhu.ButtonKonversiClick(Sender: TObject);
 var
   celcius, fahrenheit: Double;
 begin
-  if RadioGroupKonversi.ItemIndex = 0 then
-    // konversi celcius ke fahrenheit
-    begin
-      celcius := StrToFloat(EditInput.Text);
-      fahrenheit := (1.8 * celcius) + 32;
-      EditOutput.Text := FloatToStr(fahrenheit);
-    end
-  else if RadioGroupKonversi.ItemIndex = 1 then
-    // konversi fahrenheit ke celcius
-    begin
-      fahrenheit := StrToFloat(EditInput.Text);
-      celcius := (fahrenheit - 32) * 5 / 9;
-      EditOutput.Text := FloatToStr(celcius);
-    end;
+  case RadioGroupKonversi.ItemIndex of
+    0:
+      begin
+        // konversi celcius ke fahrenheit
+        celcius := StrToFloat(EditInput.Text);
+        fahrenheit := (1.8 * celcius) + 32;
+        EditOutput.Text := FloatToStr(fahrenheit);
+      end;
+    1:
+      begin
+        // konversi fahrenheit ke celcius
+        fahrenheit := StrToFloat(EditInput.Text);
+        celcius := (fahrenheit - 32) * 5 / 9;
+        EditOutput.Text := FloatToStr(celcius);
+      end;
+  end;
 end;
 
 procedure TFormKonversiSuhu.ButtonUlangClick(Sender: TObject);
@@ -92,4 +109,11 @@ begin
   LabelOutput.Caption := 'Output Suhu';
 end;
 
+procedure TFormKonversiSuhu.EditInputChange(Sender: TObject);
+begin
+  // enable tombol konversi kalau inputan tidak kosong
+  ButtonKonversi.Enabled := EditInput.Text <> '';
+end;
+
 end.
+

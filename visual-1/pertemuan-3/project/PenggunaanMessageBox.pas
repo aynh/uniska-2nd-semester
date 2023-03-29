@@ -39,22 +39,27 @@ end;
 
 procedure TFormPenggunaanMessageBox.Button2Click(Sender: TObject);
 begin
-  MessageDlg('Ini message box menggunakan MessageDlg dengan tipe mtInformation', mtInformation, [mbOK], 0);
+  MessageDlg('Ini message box menggunakan MessageDlg dengan tipe mtInformation',
+    mtInformation, [mbOK], 0);
 end;
 
 procedure TFormPenggunaanMessageBox.Button3Click(Sender: TObject);
 begin
-   MessageDlg('Ini message box menggunakan MessageDlg dengan tipe mtWarning dengan tombol OK dan Cancel', mtWarning, [mbOK, mbCancel], 0);
+  MessageDlg('Ini message box menggunakan MessageDlg dengan tipe mtWarning dengan tombol OK dan Cancel',
+    mtWarning, [mbOK, mbCancel], 0);
 end;
 
 procedure TFormPenggunaanMessageBox.Button4Click(Sender: TObject);
 begin
-  MessageDlg('Ini message box menggunakan MessageDlg dengan tipe mtError dengan tombol Yes, No, dan Cancel', mtError, [mbYes, mbNo, mbCancel], 0);
+  MessageDlg('Ini message box menggunakan MessageDlg dengan tipe mtError dengan tombol Yes, No, dan Cancel',
+    mtError, [mbYes, mbNo, mbCancel], 0);
 end;
 
 procedure TFormPenggunaanMessageBox.Button5Click(Sender: TObject);
 begin
-  MessageDlg('Ini message box menggunakan MessageDlg dengan tipe mtConfirmation dengan tombol Ok, Cancel, dan Retry', mtError, [mbOK, mbCancel, mbRetry], 0);
+  MessageDlg('Ini message box menggunakan MessageDlg dengan tipe mtConfirmation dengan tombol Ok, Cancel, dan Retry',
+    mtError, [mbOK, mbCancel, mbRetry], 0);
 end;
 
 end.
+
