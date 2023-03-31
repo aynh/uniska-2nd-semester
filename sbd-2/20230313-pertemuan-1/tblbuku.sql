@@ -1,9 +1,8 @@
 CREATE TABLE tblbuku
   (
-    kd_buku INT AUTO_INCREMENT,
+    kd_buku INT AUTO_INCREMENT PRIMARY KEY,
     judul VARCHAR(255),
     kd_peng INT,
-    PRIMARY KEY (kd_buku),
     FOREIGN KEY (kd_peng) REFERENCES tblpengarang(kd_peng)
   );
 
