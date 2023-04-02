@@ -1,5 +1,5 @@
 [package]
-name = "project-egui"
+name = "input-data-mahasiswa"
 version = "0.1.0"
 edition = "2021"
 
@@ -7,5 +7,5 @@ edition = "2021"
 
 [dependencies]
 chrono = { version = "0.4.24", default-features = false, features = ["std"] }
-eframe = "0.21.3"
+eframe = { version = "0.21.3", features = ["__screenshot"] }
 egui_extras = { version = "0.21.0", features = ["datepicker"] }

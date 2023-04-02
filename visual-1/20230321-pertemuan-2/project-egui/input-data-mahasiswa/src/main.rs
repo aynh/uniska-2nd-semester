@@ -2,11 +2,11 @@ use eframe::egui;
 
 fn main() -> Result<(), eframe::Error> {
     eframe::run_native(
-        "Form Input Data Mahasiswa",
+        "Input Data Mahasiswa",
         eframe::NativeOptions {
             centered: true,
             resizable: false,
-            initial_window_size: Some([450.0, 360.0].into()),
+            initial_window_size: Some([420.0, 390.0].into()),
             ..Default::default()
         },
         Box::new(|_cc| Box::<FormInputDataMahasiswa>::default()),
@@ -22,6 +22,7 @@ struct FormInputDataMahasiswa {
     npm: String,
     nama_lengkap: String,
     tanggal_lahir: chrono::NaiveDate,
+    fakultas: Fakultas,
     program_studi: ProgramStudi,
     jenis_kelamin: JenisKelamin,
     alamat: String,
@@ -37,6 +38,7 @@ impl Default for FormInputDataMahasiswa {
             npm: "2210010".to_string(),
             nama_lengkap: "Ahmad Yasser".to_string(),
             tanggal_lahir: chrono::NaiveDate::from_ymd_opt(2003, 12, 17).unwrap(),
+            fakultas: Fakultas::TeknologiInformasi,
             program_studi: ProgramStudi::TeknikInformatika,
             jenis_kelamin: JenisKelamin::LakiLaki,
             alamat: "".to_string(),
@@ -52,6 +54,7 @@ impl InputWidget for FormInputDataMahasiswa {
     fn widget(&mut self, ui: &mut egui::Ui) {
         ui.label("NPM");
         ui.text_edit_singleline(&mut self.npm);
+        self.npm.truncate(10);
         ui.end_row();
 
         ui.label("Nama Lengkap");
@@ -62,8 +65,16 @@ impl InputWidget for FormInputDataMahasiswa {
         ui.add(egui_extras::DatePickerButton::new(&mut self.tanggal_lahir));
         ui.end_row();
 
+        ui.label("Fakultas");
+        self.fakultas.widget(ui);
+        let program_studi = self.fakultas.program_studi();
+        if program_studi.binary_search(&self.program_studi).is_err() {
+            self.program_studi = program_studi[0];
+        };
+        ui.end_row();
+
         ui.label("Program Studi");
-        self.program_studi.widget(ui);
+        (&mut self.program_studi, program_studi).widget(ui);
         ui.end_row();
 
         ui.label("Jenis Kelamin");
@@ -76,6 +87,7 @@ impl InputWidget for FormInputDataMahasiswa {
 
         ui.label("Nomor HP/WA");
         ui.text_edit_singleline(&mut self.nomor_handphone);
+        self.nomor_handphone.truncate(13);
         ui.end_row();
 
         ui.label("Email");
@@ -88,6 +100,7 @@ impl InputWidget for FormInputDataMahasiswa {
 
         ui.label("Status Nikah");
         self.status_nikah.widget(ui);
+        ui.end_row();
     }
 }
 
@@ -95,34 +108,105 @@ impl eframe::App for FormInputDataMahasiswa {
     fn update(&mut self, ctx: &egui::Context, _frame: &mut eframe::Frame) {
         egui::CentralPanel::default().show(ctx, |ui| {
             ui.vertical_centered(|ui| {
-                ui.heading("Form Input Data Mahasiswa");
+                ui.heading("Program Input Data Mahasiswa");
             });
 
-            ui.add_space(15.0);
+            ui.add_space(7.5);
 
             egui::Grid::new("form-input-data-mahasiswa")
                 .num_columns(2)
-                .spacing([30.0, 5.0])
+                .spacing([30.0, 7.5])
                 .striped(true)
                 .show(ui, |ui| {
                     self.widget(ui);
                 });
 
-            ui.add_space(10.0);
+            ui.add_space(7.5);
 
-            ui.horizontal(|ui| {
-                let _ = ui.button("Input");
-                ui.add_enabled_ui(*self != Default::default(), |ui| {
-                    if ui.button("Ulang").clicked() {
-                        *self = Default::default();
-                    }
-                });
-            });
+            ui.columns(2, |columns| {
+                let _ = columns[0].button("Input");
+                egui::reset_button(&mut columns[1], self);
+            })
         });
     }
 }
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
+enum Fakultas {
+    Ekonomi,
+    Hukum,
+    IlmuFarmasi,
+    IlmuSosialDanIlmuPolitik,
+    KeguruanDanIlmuPendidikan,
+    KesehatanMasyarakat,
+    Pertanian,
+    StudiIslam,
+    Teknik,
+    TeknologiInformasi,
+    PascaSarjana,
+}
+
+impl Fakultas {
+    fn program_studi(self) -> &'static [ProgramStudi] {
+        use ProgramStudi::*;
+        match self {
+            Fakultas::Ekonomi => &[Manajemen],
+            Fakultas::Hukum => &[IlmuHukum],
+            Fakultas::IlmuFarmasi => &[Farmasi],
+            Fakultas::IlmuSosialDanIlmuPolitik => &[IlmuAdministrasiPublik, IlmuKomunikasi],
+            Fakultas::KeguruanDanIlmuPendidikan => &[
+                BimbinganDanKonseling,
+                PendidikanBahasaInggris,
+                PendidikanKimia,
+                PendidikanOlahraga,
+            ],
+            Fakultas::KesehatanMasyarakat => &[KesehatanMasyarakat],
+            Fakultas::Pertanian => &[Agribisnis, Peternakan],
+            Fakultas::StudiIslam => &[
+                EkonomiSyariah,
+                HukumEkonomiSyariah,
+                PendidikanGuruMadrasahIbtidaiyah,
+            ],
+            Fakultas::Teknik => &[TeknikElektro, TeknikIndustri, TeknikMesin, TeknikSipil],
+            Fakultas::TeknologiInformasi => &[SistemInformasi, TeknikInformatika],
+            Fakultas::PascaSarjana => &[
+                MagisterAdministrasiPendidikan,
+                MagisterIlmuAdministrasiPublik,
+                MagisterIlmuKomunikasi,
+                MagisterManajemen,
+                MagisterPeternakan,
+            ],
+        }
+    }
+}
+
+impl InputWidget for Fakultas {
+    fn widget(&mut self, ui: &mut egui::Ui) {
+        let text = truncate_string(*self);
+        egui::ComboBox::from_label("Pilihan Fakultas")
+            .selected_text(text)
+            .show_ui(ui, |ui| {
+                use Fakultas::*;
+                for fakultas in [
+                    Ekonomi,
+                    Hukum,
+                    IlmuFarmasi,
+                    IlmuSosialDanIlmuPolitik,
+                    KeguruanDanIlmuPendidikan,
+                    KesehatanMasyarakat,
+                    Pertanian,
+                    StudiIslam,
+                    Teknik,
+                    TeknologiInformasi,
+                    PascaSarjana,
+                ] {
+                    ui.selectable_value(self, fakultas, format!("{}", fakultas));
+                }
+            });
+    }
+}
+
+#[derive(Clone, Copy, Debug, PartialEq, Eq, PartialOrd, Ord)]
 enum ProgramStudi {
     Agribisnis,
     BimbinganDanKonseling,
@@ -152,48 +236,14 @@ enum ProgramStudi {
     MagisterPeternakan,
 }
 
-impl InputWidget for ProgramStudi {
+impl InputWidget for (&mut ProgramStudi, &[ProgramStudi]) {
     fn widget(&mut self, ui: &mut egui::Ui) {
-        let text = self.to_string();
-        let text = if text.len() > 20 {
-            format!("{}...", &text[..=20])
-        } else {
-            text
-        };
-
-        egui::ComboBox::from_label("Pilihan Studi")
+        let text = truncate_string(*self.0);
+        egui::ComboBox::from_label("Pilihan Prodi")
             .selected_text(text)
             .show_ui(ui, |ui| {
-                use ProgramStudi::*;
-                for program_studi in [
-                    Agribisnis,
-                    BimbinganDanKonseling,
-                    EkonomiSyariah,
-                    Farmasi,
-                    HukumEkonomiSyariah,
-                    IlmuAdministrasiPublik,
-                    IlmuHukum,
-                    IlmuKomunikasi,
-                    KesehatanMasyarakat,
-                    Manajemen,
-                    PendidikanBahasaInggris,
-                    PendidikanGuruMadrasahIbtidaiyah,
-                    PendidikanKimia,
-                    PendidikanOlahraga,
-                    Peternakan,
-                    SistemInformasi,
-                    TeknikElektro,
-                    TeknikIndustri,
-                    TeknikInformatika,
-                    TeknikMesin,
-                    TeknikSipil,
-                    MagisterAdministrasiPendidikan,
-                    MagisterIlmuAdministrasiPublik,
-                    MagisterIlmuKomunikasi,
-                    MagisterManajemen,
-                    MagisterPeternakan,
-                ] {
-                    ui.selectable_value(self, program_studi, format!("{}", program_studi));
+                for program_studi in self.1 {
+                    ui.selectable_value(self.0, *program_studi, format!("{}", program_studi));
                 }
             });
     }
@@ -257,6 +307,16 @@ impl InputWidget for StatusNikah {
     }
 }
 
+fn truncate_string(s: impl ToString) -> String {
+    let mut s = s.to_string();
+    s.truncate(20);
+    if s.len() == 20 {
+        s.push_str("...");
+    }
+
+    s
+}
+
 macro_rules! impl_display_to_enum {
     ($T:ident) => {
         impl std::fmt::Display for $T {
@@ -277,6 +337,7 @@ macro_rules! impl_display_to_enum {
 }
 
 impl_display_to_enum!(Agama);
+impl_display_to_enum!(Fakultas);
 impl_display_to_enum!(JenisKelamin);
 impl_display_to_enum!(StatusNikah);
 impl_display_to_enum!(ProgramStudi);
