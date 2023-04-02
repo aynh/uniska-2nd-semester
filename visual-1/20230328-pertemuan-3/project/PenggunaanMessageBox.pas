@@ -58,7 +58,7 @@ end;
 procedure TFormPenggunaanMessageBox.Button5Click(Sender: TObject);
 begin
   MessageDlg('Ini message box menggunakan MessageDlg dengan tipe mtConfirmation dengan tombol Ok, Cancel, dan Retry',
-    mtError, [mbOK, mbCancel, mbRetry], 0);
+    mtConfirmation, [mbOK, mbCancel, mbRetry], 0);
 end;
 
 end.
