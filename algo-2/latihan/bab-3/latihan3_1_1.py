@@ -1,5 +1,5 @@
 print("Program Menentukan Positif atau Negatif")
-print("************************************")
+print("***************************************")
 
 x = int(input("Masukkan bilangan: "))
 

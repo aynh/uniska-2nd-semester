@@ -1,15 +1,15 @@
 print("Program Menghitung Luas")
 print("***********************")
-print("Pilih Menu")
-print("=====> 1. Luas Lingkaran")
-print("       2. Luas Persegi")
-print("       3. Luas Segitiga")
+print("Pilih menu")
+print("=====> 1. Luas lingkaran")
+print("       2. Luas persegi panjang")
+print("       3. Luas segitiga")
 
 pilihan = int(input("Pilih: "))
 
 print()
 if pilihan == 1:
-    print("Program Lingkaran")
+    print("Program lingkaran")
     print("*****************")
 
     radius = int(input("Masukkan jari-jari: "))
@@ -18,7 +18,7 @@ if pilihan == 1:
 
     print("Luas lingkaran =", luas)
 elif pilihan == 2:
-    print("Program Persegi Panjang")
+    print("Program persegi Panjang")
     print("***********************")
 
     panjang = int(input("Masukkan panjang: "))
@@ -28,7 +28,7 @@ elif pilihan == 2:
 
     print("Luas persegi panjang =", luas)
 elif pilihan == 3:
-    print("Program Segitiga")
+    print("Program segitiga")
     print("****************")
 
     alas = int(input("Masukkan alas: "))
@@ -36,6 +36,6 @@ elif pilihan == 3:
 
     luas = 0.5 * alas * tinggi
 
-    print("Luas Segitiga =", luas)
+    print("Luas segitiga =", luas)
 else:
     print("Pilihan menu tidak ada")

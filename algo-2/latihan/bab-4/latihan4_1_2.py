@@ -1,8 +1,8 @@
-print("Program jual discount")
+print("Program Jual Discount")
 print("*********************")
 
 print()
-beli = int(input("Total pembelian: "))
+beli = int(input("Total pembelian: Rp. "))
 
 match beli:
     case beli if 0 < beli <= 1000:

@@ -6,4 +6,4 @@ radius = float(input("Masukkan jari-jari lingkaran: "))
 
 luas = phi * radius * radius
 
-print("Luas Lingkaran adalah =", luas)
+print("Luas lingkaran adalah =", luas)

@@ -1,4 +1,4 @@
-print("Program memeriksa hari dalam bulan maret 2012")
+print("Program Memeriksa Hari pada Bulan Maret 2012")
 print("*********************************************")
 
 tanggal = int(input("Masukkan tanggal: "))
