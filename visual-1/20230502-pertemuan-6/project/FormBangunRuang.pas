@@ -15,9 +15,9 @@ type
     EditTinggi: TEdit;
     ButtonHitung: TButton;
     LabelLuas: TLabel;
-    LabelKeliling: TLabel;
+    LabelVolume: TLabel;
     EditLuas: TEdit;
-    EditKeliling: TEdit;
+    EditVolume: TEdit;
     LabelPHI: TLabel;
     ButtonReset: TButton;
     procedure ButtonHitungClick(Sender: TObject);
@@ -56,7 +56,7 @@ begin
     jari := StrToFloat(EditJari.Text);
     tinggi := StrToFloat(EditTinggi.Text);
     EditLuas.Text := FloatToStr(2 * phi * jari * (jari + tinggi));
-    EditKeliling.Text := FloatToStr(phi * jari * jari * tinggi);
+    EditVolume.Text := FloatToStr(phi * jari * jari * tinggi);
   end;
 end;
 
@@ -86,8 +86,7 @@ begin
   EditJari.Clear;
   EditTinggi.Clear;
   EditLuas.Clear;
-  EditKeliling.Clear;
-
+  EditVolume.Clear;
 end;
 
 end.

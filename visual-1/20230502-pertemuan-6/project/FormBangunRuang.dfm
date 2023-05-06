@@ -53,12 +53,12 @@ object BangunRuang: TBangunRuang
     Height = 13
     Caption = 'Luas -- (2 * PHI * r * (r + t))'
   end
-  object LabelKeliling: TLabel
+  object LabelVolume: TLabel
     Left = 74
     Top = 301
-    Width = 131
+    Width = 130
     Height = 13
-    Caption = 'Keliling -- (PHI * r * r * t)'
+    Caption = 'Volume -- (PHI * r * r * t)'
   end
   object LabelPHI: TLabel
     Left = 220
@@ -100,7 +100,7 @@ object BangunRuang: TBangunRuang
     Enabled = False
     TabOrder = 3
   end
-  object EditKeliling: TEdit
+  object EditVolume: TEdit
     Left = 58
     Top = 316
     Width = 160
