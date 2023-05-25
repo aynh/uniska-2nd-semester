@@ -1,6 +1,6 @@
 object Form1: TForm1
-  Left = 246
-  Top = 147
+  Left = 555
+  Top = 129
   BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsSingle
   Caption = 'Form1'
@@ -30,12 +30,12 @@ object Form1: TForm1
     Height = 13
     Caption = 'Nilai Akhir'
   end
-  object LabelIsiPesan: TLabel
-    Left = 170
+  object LabelIsiTeks: TLabel
+    Left = 173
     Top = 73
-    Width = 47
+    Width = 40
     Height = 13
-    Caption = 'Isi Pesan'
+    Caption = 'Isi Teks'
   end
   object EditNilaiAwal: TEdit
     Left = 54
@@ -51,7 +51,7 @@ object Form1: TForm1
     Height = 21
     TabOrder = 1
   end
-  object EditIsiPesan: TEdit
+  object EditIsiTeks: TEdit
     Left = 43
     Top = 92
     Width = 300

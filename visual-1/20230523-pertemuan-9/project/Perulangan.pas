@@ -12,8 +12,8 @@ type
     LabelNilaiAwal: TLabel;
     EditNilaiAkhir: TEdit;
     LabelNilaiAkhir: TLabel;
-    EditIsiPesan: TEdit;
-    LabelIsiPesan: TLabel;
+    EditIsiTeks: TEdit;
+    LabelIsiTeks: TLabel;
     ButtonForToDo: TButton;
     ButtonWhileDo: TButton;
     ButtonRepeatUntil: TButton;
@@ -36,37 +36,72 @@ implementation
 
 procedure TForm1.ButtonForToDoClick(Sender: TObject);
 var
-  counter: Integer;
+  awal, akhir: Integer;
 begin
+  // bersihkan nilai - nilai sebelumnya
   ListBoxOutput.Items.Clear;
-  for counter := StrToInt(EditNilaiAwal.Text) to StrToInt(EditNilaiAkhir.Text)
-    do
-    ListBoxOutput.Items.Add(IntToStr(counter) + ' -- ' + EditIsiPesan.Text);
+  awal := StrToInt(EditNilaiAwal.Text);
+  akhir := StrToInt(EditNilaiAkhir.Text);
+
+  // nilai akhir harus lebih besar daripada nilai awal
+  if awal > akhir then
+    MessageDlg('Nilai awal tidak boleh lebih besar dari nilai akhir', mtError,
+      [mbOK], 0)
+  // validasi jika isi teks kosong
+  else if EditIsiTeks.Text = '' then
+    MessageDlg('Isi teks tidak boleh kosong', mtError, [mbOK], 0)
+  else
+    // perulangan dari nilai awal sampai dengan nilai akhir
+    for awal := awal to akhir do
+      ListBoxOutput.Items.Add(IntToStr(awal) + ' -- ' + EditIsiTeks.Text);
 end;
 
 procedure TForm1.ButtonWhileDoClick(Sender: TObject);
 var
-  counter: Integer;
-begin
+  awal, akhir: Integer;
+begin        
+  // bersihkan nilai - nilai sebelumnya
   ListBoxOutput.Items.Clear;
-  counter := StrToInt(EditNilaiAwal.Text);
-  while counter <= StrToInt(EditNilaiAkhir.Text) do
-  begin
-    ListBoxOutput.Items.Add(IntToStr(counter) + ' -- ' + EditIsiPesan.Text);
-    counter := counter + 1;
-  end;
+  awal := StrToInt(EditNilaiAwal.Text);
+  akhir := StrToInt(EditNilaiAkhir.Text);
+         
+  // nilai akhir harus lebih besar daripada nilai awal
+  if awal > akhir then
+    MessageDlg('Nilai awal tidak boleh lebih besar dari nilai akhir', mtError,
+      [mbOK], 0)    
+  // validasi jika isi teks kosong
+  else if EditIsiTeks.Text = '' then
+    MessageDlg('Isi teks tidak boleh kosong', mtError, [mbOK], 0)
+  else
+    // selama nilai awal lebih dari atau sama dengan nilai akhir:
+    while awal <= akhir do
+    begin
+      ListBoxOutput.Items.Add(IntToStr(awal) + ' -- ' + EditIsiTeks.Text);
+      awal := awal + 1;
+    end;
 end;
 
 procedure TForm1.ButtonRepeatUntilClick(Sender: TObject);
 var
-  counter: Integer;
-begin
+  awal, akhir: Integer;
+begin           
+  // bersihkan nilai - nilai sebelumnya
   ListBoxOutput.Items.Clear;
-  counter := StrToInt(EditNilaiAwal.Text);
-  repeat
-    ListBoxOutput.Items.Add(IntToStr(counter) + ' -- ' + EditIsiPesan.Text);
-    counter := counter + 1;
-  until counter > StrToInt(EditNilaiAkhir.Text);
+  awal := StrToInt(EditNilaiAwal.Text);
+  akhir := StrToInt(EditNilaiAkhir.Text);
+        
+  // nilai akhir harus lebih besar daripada nilai awal
+  if awal > akhir then
+    MessageDlg('Nilai awal tidak boleh lebih besar dari nilai akhir', mtError,
+      [mbOK], 0)        
+  // validasi jika isi teks kosong
+  else if EditIsiTeks.Text = '' then
+    MessageDlg('Isi teks tidak boleh kosong', mtError, [mbOK], 0)
+  else
+    repeat // ulangi baris - baris dibawah
+      ListBoxOutput.Items.Add(IntToStr(awal) + ' -- ' + EditIsiTeks.Text);
+      awal := awal + 1;
+    until awal > akhir; // sampai nilai awal lebih besar daripada nilai akhir
 end;
 
 end.
